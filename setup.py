@@ -40,6 +40,29 @@ viz.phys.enable();
 #####################################################################################
 #####################################################################################
 
+viz.go(viz.STEREO_HORZ)
+cameras = VideoVision.add(camType=VideoVision.UEYE)
+
+text2D = viz.addText('After folding the paper in half ian Step 3,',pos=[0,1,4]);
+text2D.setScale(0.08,0.08,0.08)
+text2D.alignment(viz.ALIGN_CENTER_BOTTOM)
+text2D.setBackdrop(viz.BACKDROP_RIGHT_BOTTOM)
+text2D.resolution(1)
+
+text2D = viz.addText(' fold the top-left and top-right corners',pos=[0,0.9,4]);
+text2D.setScale(0.08,0.08,0.08)
+text2D.alignment(viz.ALIGN_CENTER_BOTTOM)
+text2D.setBackdrop(viz.BACKDROP_RIGHT_BOTTOM)
+text2D.resolution(1)
+
+
+text2D = viz.addText('of the paper so that the two corners mee',pos=[0,0.8,4]);
+text2D.setScale(0.08,0.08,0.08)
+text2D.alignment(viz.ALIGN_CENTER_BOTTOM)
+text2D.setBackdrop(viz.BACKDROP_RIGHT_BOTTOM)
+text2D.resolution(1)
+
+
 '''
 vizconnect.go('./Vizconnect_config_2limbs.py'); #vizconnect configurations are initialized here
 viz.ipd(.08); #vision as related between eyes?
@@ -53,11 +76,14 @@ ar = viz.add('artoolkit.dle');
 camera = VideoVision.add(VideoVision.UEYE);
 rightCam = ar.addCamera(camera.rightcam, flipVertical=True, eye=viz.RIGHT_EYE);
 leftCam = ar.addCamera(camera.leftcam, flipVertical=True, eye=viz.LEFT_EYE);
+'''
+
+'''
 #### AR Marker setup ###############################################################
 rightMarkerArray = [];
 leftMarkerArray = [];
 
-rightMarker = rightCam.addMultiMarker('ar/cubeMarkerConfig.dat',width=40);
+#rightMarker = rightCam.addMultiMarker('ar/cubeMarkerConfig.dat',width=40);
 rightMarkerArray.append(rightMarker);
 leftMarker = leftCam.addMultiMarker('ar/cubeMarkerConfig.dat',width=40);
 leftMarkerArray.append(leftMarker);
@@ -72,6 +98,7 @@ rightMarkerArray.append(rightMarker3);
 leftMarker3 = leftCam.addMatrixMarker(62, width=125);
 leftMarkerArray.append(leftMarker3);
 '''
+
 ####################################################################################
 ####################################################################################
 ####################################################################################

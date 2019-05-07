@@ -9,7 +9,7 @@ additionalInfo.label.color(viz.BLUE);
 
 ### Program Execution ##############
 #vizact.ontimer(0.0,updateCameras); #this bad boy runs the camera
-viz.go(); #starts up viz
+#viz.go(); #starts up viz
 ####################################
 
 if origamiMode == 'Swan': #Swan mode 
