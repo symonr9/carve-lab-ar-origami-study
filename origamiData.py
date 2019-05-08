@@ -7,39 +7,39 @@ boat = 'Boat';
 
 lastSwanStepNum = 10;
 #fixme: double check this
-lastBoatStepNum = 16;
-
+lastBoatStepNum = 15;
 
 boatInstructions = [
-	"Fold the paper in half from left to right.",
-	"Unfold the paper.",
-	"Fold the paper in half from top to bottom. (Do not unfold the paper)",
-	"After folding the paper in half in Step 3, fold the top-left and top-right corners towards the center of the paper so that the two corners meet close to the center of the bottom of the paper.",
-	"There will be two rectangular sections at the bottom of your paper (a flap). Fold the top layer of the flap upwards. Crease the flap.",
-	"Turn the paper over.",
-	"Fold the other flap upwards as well. Crease the flap.",
-	"Open up the paper by pulling the two long sides of the bottom of the paper apart and collapsing it into a diamond shape.",
-	"This diamond shape will have two layers. Fold the first layer from the bottom corner of the diamond to the top corner.",
-	"Turn the paper over.",
-	"Fold this layer from the bottom corner of the diamond to the top corner as well.",
-	"Open up the paper by pulling the two long sides of the bottom of the paper apart and collapsing it into a diamond shape.",
-	"This diamond will have two separated layers of paper to its left and right. Grab the two layers and pull them gently apart.",
-	"Flatten the bottom part of the paper to shape the body of the boat.",
-	"Open up the sides of the boat.",
+	"Position the paper vertically (top/bottom sides are shorter).",
+	"Fold the left side to the right side.",
+	"Unfold the left side from the right side.",
+	"Fold the top side to the bottom side.",
+	"Fold the top-left and top-right corners towards the center so that the two corners meet.",
+	"Fold the top layer of the bottom flap upwards and crease.",
+	"Turn the paper over. ",
+	"Fold the bottom flap upwards and crease.",
+	"Pull the two layers apart from the bottom and collapse it into a diamond.",
+	"Fold the top layer from the bottom corner to the top corner.",
+	"Turn the paper over. ",
+	"Fold the top layer from the bottom corner to the top corner.",
+	"Pull the two layers apart from the bottom and collapse it into a diamond.",
+	"Gently pull apart the two thin layers on the left and right sides.",
+	"Crease the triangle-shaped section and position it vertically."
 ];
 
 swanInstructions = [
 	"Position the paper like a diamond.",
-	"Fold the left and right sides of the diamond-oriented paper towards the center so that the sides meet. Crease the fold.",
+	"Fold the bottom-left and bottom-right sides to the center so that the sides meet.",
 	"Flip the paper over.",
-	"Repeat step 2 and fold the left and right sides of the paper towards the center so that the sides meet. Crease the fold.",
-	"Fold the bottom corner of the paper towards the top of the paper.",
-	"Take the part of the paper you just folded and fold down a small section to form the beak of the swan.",
+	"Fold the bottom-left and bottom-right sides to the center so that the sides meet.",
+	"Fold the bottom corner towards the top.",
+	"Fold down a small section from the top corner of the top layer.",
 	"Flip the paper over.",
-	"Fold the left side of the paper to the right. Crease the paper you folded. The swan's beak will stick out slightly.",
-	"While holding the swan’s body down, only pull the head and neck up.",
-	"Crease the base of the swan’s neck."
+	"Fold the left side (both layers) to the right and crease.",
+	"Hold the bottom layer down and pull the top layer up.",
+	"Pull the small section of the top layer out."
 ];
+
 
 ##########################################################################
 
