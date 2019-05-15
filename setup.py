@@ -40,27 +40,8 @@ viz.phys.enable();
 #####################################################################################
 #####################################################################################
 
-viz.go(viz.STEREO_HORZ)
-cameras = VideoVision.add(camType=VideoVision.UEYE)
-
-text2D = viz.addText('After folding the paper in half ian Step 3,',pos=[0,1,4]);
-text2D.setScale(0.08,0.08,0.08)
-text2D.alignment(viz.ALIGN_CENTER_BOTTOM)
-text2D.setBackdrop(viz.BACKDROP_RIGHT_BOTTOM)
-text2D.resolution(1)
-
-text2D = viz.addText(' fold the top-left and top-right corners',pos=[0,0.9,4]);
-text2D.setScale(0.08,0.08,0.08)
-text2D.alignment(viz.ALIGN_CENTER_BOTTOM)
-text2D.setBackdrop(viz.BACKDROP_RIGHT_BOTTOM)
-text2D.resolution(1)
-
-
-text2D = viz.addText('of the paper so that the two corners mee',pos=[0,0.8,4]);
-text2D.setScale(0.08,0.08,0.08)
-text2D.alignment(viz.ALIGN_CENTER_BOTTOM)
-text2D.setBackdrop(viz.BACKDROP_RIGHT_BOTTOM)
-text2D.resolution(1)
+#viz.go(viz.STEREO_HORZ);
+#cameras = VideoVision.add(camType=VideoVision.UEYE);
 
 
 '''
@@ -70,55 +51,11 @@ viz.clip(near=.12);
 
 headTracker = vizconnect.getRawTracker('optical_heading');
 rightHandTracker = vizconnect.getRawTracker('ppt_rhand');
-#### Augmented reality setup #######################################################
-ar = viz.add('artoolkit.dle');
 
 camera = VideoVision.add(VideoVision.UEYE);
 rightCam = ar.addCamera(camera.rightcam, flipVertical=True, eye=viz.RIGHT_EYE);
 leftCam = ar.addCamera(camera.leftcam, flipVertical=True, eye=viz.LEFT_EYE);
 '''
-
-'''
-#### AR Marker setup ###############################################################
-rightMarkerArray = [];
-leftMarkerArray = [];
-
-#rightMarker = rightCam.addMultiMarker('ar/cubeMarkerConfig.dat',width=40);
-rightMarkerArray.append(rightMarker);
-leftMarker = leftCam.addMultiMarker('ar/cubeMarkerConfig.dat',width=40);
-leftMarkerArray.append(leftMarker);
-
-rightMarker2 = rightCam.addMatrixMarker(63, width=200);
-rightMarkerArray.append(rightMarker2);
-leftMarker2 = leftCam.addMatrixMarker(63, width=200);
-leftMarkerArray.append(leftMarker2);
-
-rightMarker3 = rightCam.addMatrixMarker(62, width=125);
-rightMarkerArray.append(rightMarker3);
-leftMarker3 = leftCam.addMatrixMarker(62, width=125);
-leftMarkerArray.append(leftMarker3);
-'''
-
-####################################################################################
-####################################################################################
-####################################################################################
-
-
-### Objects Setup ##################################################################
-####################################################################################
-####################################################################################
-
-
-#rh_sphere=vizshape.addSphere(radius=.02,slices=20,stacks=20) #Adding a sphere to represent user's fingertip
-#viz.link(rightHandTracker, rh_sphere)
-
-#ground = vizshape.addPlane(size=(50.0,50.0),axis=vizshape.AXIS_Y, cullFace=True)
-#setupGround(ground);
-
-#basketball = viz.add('basketball.osgb');
-#basketball.setScale(0.1,0.1,0.1);
-
-#linkMarkers(leftMarker, rightMarker, basketball, basketball);
 
 ####################################################################################
 ####################################################################################

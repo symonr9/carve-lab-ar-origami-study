@@ -6,7 +6,6 @@ from parameters import *
 ##########################################################################
 
 currentStepNum = 0;
-isStepCompleted = 0;
 isTrialCompleted = 0;
 
 currentStep = "Step " + str(currentStepNum);

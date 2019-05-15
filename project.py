@@ -1,46 +1,40 @@
 ﻿from setup import *
 
 ### Execution Setup ################
-instructionPanel = vizinfo.InfoPanel(currentStep,fontSize=40);
-instructionPanel.addSeparator();
-additionalInfo = instructionPanel.addLabelItem("as", viz.addText("Hello world"));
-additionalInfo.label.color(viz.BLUE);
+textOnScreen = viz.addText('Begin by pressing the down key.',pos=[0,0.8,4]);
+#Perform configurations for text.
+textOnScreen.setScale(0.13,0.13,0.13);
+textOnScreen.alignment(viz.ALIGN_CENTER_BOTTOM);
+textOnScreen.setBackdrop(viz.BACKDROP_RIGHT_BOTTOM);
+textOnScreen.font('Times New Roman') 
+textOnScreen.resolution(1);
 ####################################
 
 ### Program Execution ##############
 #vizact.ontimer(0.0,updateCameras); #this bad boy runs the camera
-#viz.go(); #starts up viz
+viz.go(); #starts up viz
 ####################################
 
-if origamiMode == 'Swan': #Swan mode 
-	print "Entering Swan Mode!";
-	while isTrialCompleted == 0:
-		print "In Step " + str(currentStepNum);
-		print swanInstructions[currentStepNum];
+def printStep(origamiMode, stepNum):
+	global textOnScreen;
 
-		#when step is completed, set isStepCompleted to 1
-		if isStepCompleted == 1:
-			nextStep();
-			isStepCompleted = 0;
-			currentStepNum += 1;
-			if currentStepNum == endStepNum:
-				isTrialCompleted = 1; #this goes to the last one 
-elif origamiMode == 'Boat':
-	print "Entering Boat Mode!";
-	while isTrialCompleted == 0:
-		print "In Step " + str(currentStepNum);
-		print boatInstructions[currentStepNum];
+	if origamiMode == "Boat":
+		textOnScreen.message(boatInstructions[stepNum]);
+		#textOnScreen = viz.addText(boatInstructions[stepNum]);
+	elif origamiMode == "Swan":
+		#textOnScreen = viz.addText(swanInstructions[stepNum]);
+		textOnScreen.message(swanInstructions[stepNum]);
 		
-		#when step is completed, set isStepCompleted to 1
-		if isStepCompleted == 1:
-			nextStep();
-			isStepCompleted = 0;
-			currentStepNum += 1;
-			if currentStepNum == endStepNum:
-				isTrialCompleted = 1; #this goes to the last one 
-	
-else: 
-	print "Incorrect Mode selected!";
+def nextStep(key):
+	global origamiMode, isStepCompleted, currentStepNum;
+	if origamiMode == "Boat" or origamiMode == "Swan":
+		printStep(origamiMode, currentStepNum);
+		currentStepNum += 1;			
+		if currentStepNum == endStepNum:
+			print "You have completed this task!";
+			exit();
+	else: 
+		print "Incorrect Mode selected!";
 
-
+viz.callback(viz.KEYDOWN_EVENT,nextStep);
 
