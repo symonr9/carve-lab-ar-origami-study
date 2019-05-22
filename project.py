@@ -20,6 +20,10 @@ textOnScreen.setBackdrop(viz.BACKDROP_RIGHT_BOTTOM);
 textOnScreen.font('Times New Roman'); 
 textOnScreen.resolution(1);
 
+
+### Program Execution ##############
+viz.go(viz.STEREO_HORZ);
+cameras = VideoVision.add(camType=VideoVision.UEYE);
 ####################################
 
 
@@ -48,8 +52,6 @@ def nextStep(key):
 
 
 ### Program Execution ##############
-#vizact.ontimer(0.0,updateCameras); #this bad boy runs the camera
-viz.go(); #starts up viz
 viz.callback(viz.KEYDOWN_EVENT,nextStep);
 ####################################
 

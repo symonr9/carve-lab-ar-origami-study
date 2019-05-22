@@ -40,8 +40,6 @@ viz.phys.enable();
 #####################################################################################
 #####################################################################################
 
-#viz.go(viz.STEREO_HORZ);
-#cameras = VideoVision.add(camType=VideoVision.UEYE);
 
 
 '''
@@ -53,8 +51,6 @@ headTracker = vizconnect.getRawTracker('optical_heading');
 rightHandTracker = vizconnect.getRawTracker('ppt_rhand');
 
 camera = VideoVision.add(VideoVision.UEYE);
-rightCam = ar.addCamera(camera.rightcam, flipVertical=True, eye=viz.RIGHT_EYE);
-leftCam = ar.addCamera(camera.leftcam, flipVertical=True, eye=viz.LEFT_EYE);
 '''
 
 ####################################################################################
