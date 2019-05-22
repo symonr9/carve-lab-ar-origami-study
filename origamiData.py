@@ -9,7 +9,7 @@ lastSwanStepNum = 10;
 lastBoatStepNum = 15;
 
 boatInstructions = [
-	"1. Position the paper vertically (top/bottom sides are shorter).",
+	"1. position the paper vertically (top/bottom sides are shorter).",
 	"2. Fold the left side to the right side.",
 	"3. Unfold the left side from the right side.",
 	"4. Fold the top side to the bottom side.",
