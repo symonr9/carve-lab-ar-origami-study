@@ -44,15 +44,9 @@ if(origamiType == "boat" or origamiType == "BOAT" or origamiType == "b" or origa
     origamiType = "Boat";
 elif(origamiType == "swan" or origamiType == "SWAN" or origamiType == "s" or origmaiType == "S"):
     origamiType = "Swan";
-
-while methodType not in {"Normal", "AR", "N", "A", "n", "a", "normal", "ar"}:
-    methodType = raw_input("Please enter method type (enter 'n' for 'Normal', 'a' for 'AR'): ");
-
-if(methodType == "normal" or methodType == "N" or methodType == "n"):
-    methodType = "Normal";
-elif(methodType == "ar" or methodType == "A" or methodType == "a"):
-    methodType == "AR";
-
+    
+#The method type will always be AR when running from the computer.
+methodType = "AR";
 
 #The task type is determined by two separate user inputs in order to reduce ambiguity.
 while setNum not in {"1", "2"}:
@@ -61,6 +55,7 @@ while setNum not in {"1", "2"}:
 while taskNum not in {"1", "2", "3"}:
     taskNum = raw_input("Is this task 1, 2, or 3? (enter '1', '2', or '3') (note: test is NOT done with AR): ");
 
+#Determine the taskType based on user input.
 if setNum == "1":
     if taskNum == "1":
         taskType = "First1";
@@ -156,7 +151,10 @@ class OrigamiTimeData:
         self.currentStepStartTime = self.currentStepEndTime;
         self.currentStepEndTime = time.time();
         
+        #The difference between the last step's end time and the current time is used to calculate the 
+        #total time elapsed for a particular step.
         self.stepTimes[self.currentStepNum] = self.currentStepEndTime - self.currentStepStartTime;
+        
         self.updatedOverallTime();
         
         self.currentStepNum += 1;

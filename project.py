@@ -3,8 +3,6 @@
 def saveResultsToDB():
 	print "Successfully saved results into database! ";
 	
-	
-	
 def updateScreenText(origamiType, stepNum):
 	global textOnScreen, boatInstructions, swanInstructions;
 

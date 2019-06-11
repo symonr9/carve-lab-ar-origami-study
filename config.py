@@ -2,10 +2,15 @@
 ######### Origami Variables ##############################################
 ##########################################################################
 
-#All of these variables are fixed and will not change.
+#There are XX boat steps and YY swan steps, but an extra buffer step is added in order 
+#to programmatically account for the intermediate time between when the actual experiment 
+#begins and when the program is executed by the research assistant. 
+lastSwanStepNum = 10 + 1;
+lastBoatStepNum = 15 + 1;
 
-lastSwanStepNum = 11;
-lastBoatStepNum = 16;
+
+#Note that for both the boat and swan instructions, an extra element "You have completed this task!"
+#is included.
 
 boatInstructions = [
 	"1. position the paper vertically (top/bottom sides are shorter).",
