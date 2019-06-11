@@ -1,7 +1,7 @@
 ﻿from setup import *
 
 def saveResultsToDB():
-	print "ERSAE";
+	print "Successfully saved results into database! ";
 	
 	
 	
@@ -15,14 +15,21 @@ def updateScreenText(origamiType, stepNum):
 	textOnScreen.setScale(0.10,0.10,0.10);
 		
 def nextStep():
-	global origamiType, isStepCompleted, currentStepNum;
-	if origamiType == "Boat" or origamiType == "Swan":
+	global origamiType, isStepCompleted, currentStepNum, taskData;
+	
+	if currentStepNum != endStepNum:
+		#Continue to the next step.
+		taskData.startNextStep();
 		updateScreenText(origamiType, currentStepNum);
-		currentStepNum += 1;			
-		if currentStepNum == endStepNum:
-			print "You have completed this task!";
-			print "Please save results by pressing the spacebar";
-			taskIsCompleted = True;
+		currentStepNum += 1;
+	
+		#taskData.printData();
+	else:
+		print "You have completed this task!";
+		print "Please save results by pressing the spacebar";
+		taskData.updatedOverallTime();		
+		taskData.printData();
+		taskIsCompleted = True;
 
 def handleKeyPressEvent(key):
 	if key == ' ':
@@ -36,6 +43,8 @@ def handleKeyPressEvent(key):
 			print "Please save results by pressing the spacebar.";
 
 ### Program Execution ##############
+taskData = OrigamiTimeData(origamiType);
+
 viz.go(viz.STEREO_HORZ);
 cameras = VideoVision.add(camType=VideoVision.UEYE);
 viz.callback(viz.KEYDOWN_EVENT,handleKeyPressEvent);

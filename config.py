@@ -4,8 +4,8 @@
 
 #All of these variables are fixed and will not change.
 
-lastSwanStepNum = 10;
-lastBoatStepNum = 15;
+lastSwanStepNum = 11;
+lastBoatStepNum = 16;
 
 boatInstructions = [
 	"1. position the paper vertically (top/bottom sides are shorter).",
@@ -22,7 +22,8 @@ boatInstructions = [
 	"12. Fold the top layer from the bottom corner to the top corner.",
 	"13. Pull the two layers apart from the bottom and collapse it into a diamond.",
 	"14. Gently pull apart the two thin layers on the left and right sides.",
-	"15. Crease the triangle-shaped section and position it vertically."
+	"15. Crease the triangle-shaped section and position it vertically.",
+	"You have completed this task!"
 ];
 
 swanInstructions = [
@@ -35,7 +36,8 @@ swanInstructions = [
 	"7. Flip the paper over.",
 	"8. Fold the left side (both layers) to the right and crease.",
 	"9. Hold the bottom layer down and pull the top layer up.",
-	"10. Pull the small section of the top layer out."
+	"10. Pull the small section of the top layer out.",
+	"You have completed this task!"
 ];
 
 ##########################################################################

@@ -15,6 +15,7 @@ import VideoVision
 import vizdlg
 import win32api
 import win32con
+import time
 from threading import Timer
 
 #import data dependency and project files.
@@ -26,20 +27,55 @@ participantID = "";
 origamiType = "";
 methodType = "";
 taskType = "";
+taskNum = "";
+setNum = "";
 
 #All of these variables are subject to change based on user input. 
 #The RA will specify these variables when they launch the program.
 
 #FIXME TODO: See if it should be an integer or a string in the database.
+
 participantID = raw_input("Please enter participant ID: ");
 
-while origamiType not in {"Boat", "Swan"}:
-    origamiType = raw_input("Please enter origami type ('Boat' or 'Swan'): ");
-while methodType not in {"Normal", "AR"}:
-    methodType = raw_input("Please enter method type ('Normal' or 'AR'): ");
-while taskType not in {"First1", "First2", "First3", "Test1", "Second1", "Second2", "Second3", "Test2"}:
-    taskType = raw_input("Please enter task type ('First1', 'First2', 'First3', 'Test1', 'Second1', 'Second2', 'Second3', or 'Test2', ex: First2 is the first origami learning task #2): ")
+while origamiType not in {"Boat", "Swan", "boat", "swan", "BOAT", "SWAN", "b", "s", "B", "S"}:
+    origamiType = raw_input("Please enter origami type (enter 'b' for 'Boat', 's' for 'Swan'): ");
 
+if(origamiType == "boat" or origamiType == "BOAT" or origamiType == "b" or origamiType == "B"):
+    origamiType = "Boat";
+elif(origamiType == "swan" or origamiType == "SWAN" or origamiType == "s" or origmaiType == "S"):
+    origamiType = "Swan";
+
+while methodType not in {"Normal", "AR", "N", "A", "n", "a", "normal", "ar"}:
+    methodType = raw_input("Please enter method type (enter 'n' for 'Normal', 'a' for 'AR'): ");
+
+if(methodType == "normal" or methodType == "N" or methodType == "n"):
+    methodType = "Normal";
+elif(methodType == "ar" or methodType == "A" or methodType == "a"):
+    methodType == "AR";
+
+
+#The task type is determined by two separate user inputs in order to reduce ambiguity.
+while setNum not in {"1", "2"}:
+    setNum = raw_input("Is this origami set 1 or 2? (enter '1' or '2'):");
+
+while taskNum not in {"1", "2", "3"}:
+    taskNum = raw_input("Is this task 1, 2, or 3? (enter '1', '2', or '3') (note: test is NOT done with AR): ");
+
+if setNum == "1":
+    if taskNum == "1":
+        taskType = "First1";
+    elif taskNum == "2":
+        taskType = "First2";
+    elif taskNum == "3":
+        taskType = "First3";
+elif setNum == "2":
+    if taskNum == "1":
+        taskType = "Second1";
+    elif taskNum == "2":
+        taskType = "Second2";
+    elif taskNum == "3":
+        taskType = "Third3";
+    
 
 #Output User Input that the RA provides
 print "Participant ID: ", participantID;
@@ -71,4 +107,70 @@ textOnScreen.resolution(1);
 viz.mouse.setVisible(viz.OFF); # remove mouse cursor when program starts
 viz.phys.enable();   
 
+####################################################################################
+
+
+
+### StopWatch class declaration ####################################################
+class OrigamiTimeData: 
+    def __init__(self, origamiType):
+        self.origamiType = origamiType;
+        #lastStepNum is used to determine when the task has been completed.
+        self.lastStepNum = 0;
+        if self.origamiType == "Boat":
+            self.lastStepNum = lastBoatStepNum;
+        elif self.origamiType == "Swan":
+            self.lastStepnum = lastSwanStepNum;
+        
+        
+        #Note that the beginning step number is 0, not 1. This is intentional in order to 
+        #allow the participant to determine the official start of the timer.
+        self.currentStepNum = 0;
+
+        self.currentStepStartTime = 0;
+        self.currentStepEndTime = 0;
+        
+        #The boat instructions have more steps than the swan and thus,
+        #the data is saved in the database for up to the number of boat steps,
+        #even if the task is for a swan. The remainding steps are simply not counted 
+        #and are set to 0.
+        
+        #A 1 is added to the lastBoatStepNum because the instructions are labeled from 
+        #1 onwards. A grace period time is also set for stepTimes[0] and doesn't count 
+        #to the overall time it takes to execute the program. This is to allow for the 
+        #research assistants to conduct any additional actions while also allowing the 
+        #particpiant themselves to dictate when to start, similar to the normal paper manual
+        #method with the tablet.
+        self.stepTimes = [0] * (lastBoatStepNum + 1);
+        
+        self.overallTime = 0;
+    def updatedOverallTime(self):
+        self.overallTime = 0;
+        
+        #Subtract from the initial grace period time before the timer officially started.
+        for t in range(len(self.stepTimes)):
+            #Skip the intermediate step.
+            if t > 0:
+                self.overallTime += self.stepTimes[t];
+    def startNextStep(self):
+        self.currentStepStartTime = self.currentStepEndTime;
+        self.currentStepEndTime = time.time();
+        
+        self.stepTimes[self.currentStepNum] = self.currentStepEndTime - self.currentStepStartTime;
+        self.updatedOverallTime();
+        
+        self.currentStepNum += 1;
+    def printData(self):
+        print "Origami Type: ";
+        print self.origamiType;
+        print "Last Step Num: ";
+        print self.lastStepNum;
+        print "Overall Time: "; 
+        print self.overallTime;
+        print "Step Times: ";
+    
+        for t in range(len(self.stepTimes)):
+            print "Step ", str(t), ": ";
+            print self.stepTimes[t];
+    
 ####################################################################################
