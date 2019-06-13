@@ -5,17 +5,31 @@
 ### Function Declarations ##########################################################
 ####################################################################################
 
-def saveResultsToDB():
+def saveResultsToCsvFile():
 	print "Successfully saved results into database! ";
 	
 def updateScreenText(origamiType, stepNum):
-	global textOnScreen, boatInstructions, swanInstructions;
+	global textOnScreen, bottomTextOnScreen, boatInstructions, swanInstructions;
 
 	if origamiType == "Boat":
-		textOnScreen.message(boatInstructions[stepNum]);
+		if(len(boatInstructions[stepNum]) < 50):
+			textOnScreen.message(boatInstructions[stepNum]);
+			bottomTextOnScreen.setScale(0.0001,0.00001,0.0001);
+		else:
+			textOnScreen.message(boatInstructions[stepNum][:49]);
+			bottomTextOnScreen.message(boatInstructions[stepNum][49:]);
+			bottomTextOnScreen.setScale(0.08,0.08,0.08);
+			
 	elif origamiType == "Swan":
-		textOnScreen.message(swanInstructions[stepNum]);
-	textOnScreen.setScale(0.10,0.10,0.10);
+		if(len(swanInstructions[stepNum]) < 50):
+			textOnScreen.message(swanInstructions[stepNum]);
+			bottomTextOnScreen.setScale(0.0001,0.00001,0.0001);
+		else: 
+			textOnScreen.message(swanInstructions[stepNum][:49]);
+			bottomTextOnScreen.message(swanInstructions[stepNum][49:]);
+			bottomTextOnScreen.setScale(0.08,0.08,0.08);
+			
+	textOnScreen.setScale(0.08,0.08,0.08);
 		
 def goToNextStep():
 	global origamiType, isStepCompleted, currentStepNum, onScreenStepNum, taskData;
@@ -33,6 +47,9 @@ def goToNextStep():
 		taskData.printData();
 		taskIsCompleted = True;
 		
+		#FIXME: decide if you want to just run the save results to DB automatically or not.
+		#saveResultsToCsvFile();
+		
 def goToPreviousStep():
 	global origamiType, isStepCompleted, currentStepNum, onScreenStepNum, taskData;
 	
@@ -49,7 +66,7 @@ def handleKeyPressEvent(key):
 	
 	if key == ' ':
 		if taskIsCompleted:
-			saveResultsToDB();
+			saveResultsToCsvFile();
 	else:
 		if not taskIsCompleted:
 			if key == '0':

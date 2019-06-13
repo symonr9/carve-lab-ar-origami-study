@@ -22,6 +22,8 @@ import win32con
 import time
 from threading import Timer
 
+import datetime
+
 #import data dependency and project files.
 from config import * 
 
@@ -45,11 +47,11 @@ lastBoatStepNum = 15 + 1;
 #is included.
 
 boatInstructions = [
-	"1. position the paper vertically (top/bottom sides are shorter).",
+	"1. position the paper vertically.",
 	"2. Fold the left side to the right side.",
 	"3. Unfold the left side from the right side.",
 	"4. Fold the top side to the bottom side.",
-	"5. Fold the top-left and top-right corners towards the center so that the two corners meet.",
+	"5. Fold the top-left and top-right corners        towards the center so that the two corners meet.",
 	"6. Fold the top layer of the bottom flap upwards and crease.",
 	"7. Turn the paper over. ",
 	"8. Fold the bottom flap upwards and crease.",
@@ -59,7 +61,7 @@ boatInstructions = [
 	"12. Fold the top layer from the bottom corner to the top corner.",
 	"13. Pull the two layers apart from the bottom and collapse it into a diamond.",
 	"14. Gently pull apart the two thin layers on the left and right sides.",
-	"15. Crease the triangle-shaped section and position it vertically.",
+	"15. Crease the triangle-shaped section and       position it vertically.",
 	"You have completed this task!"
 ];
 
@@ -72,7 +74,7 @@ swanInstructions = [
 	"6. Fold down a small section from the top corner of the top layer.",
 	"7. Flip the paper over.",
 	"8. Fold the left side (both layers) to the right and crease.",
-	"9. Hold the bottom layer down and pull the top layer up.",
+	"9. Hold the bottom layer down and pull the top   layer up.",
 	"10. Pull the small section of the top layer out.",
 	"You have completed this task!"
 ];
@@ -92,6 +94,9 @@ endStepNum = 0;
 taskIsCompleted = False;
 
 currentStep = "Step " + str(currentStepNum);
+
+
+currentDateTime = datetime.datetime.utcnow();
 
 #####################################################################################
 #####################################################################################
@@ -138,6 +143,7 @@ elif setNum == "2":
         taskType = "Third3";
     
 #Print User Input that the RA provides
+print "Current Date: ", currentDateTime;
 print "Participant ID: ", participantID;
 print "Origami Type: ", origamiType;
 print "Method Type: ", methodType;
@@ -171,6 +177,17 @@ textOnScreen.alignment(viz.ALIGN_CENTER_BOTTOM);
 textOnScreen.setBackdrop(viz.BACKDROP_RIGHT_BOTTOM);
 textOnScreen.font('Times New Roman'); 
 textOnScreen.resolution(1);
+
+bottomTextOnScreen = viz.addText('abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890.()/ ',pos=[0,0.7,4]);
+
+#Set initial text to negligible scale so that the user won't see the extra characters needed.
+bottomTextOnScreen.setScale(0.0001,0.00001,0.0001);
+
+#Perform configurations for text.
+bottomTextOnScreen.alignment(viz.ALIGN_CENTER_BOTTOM);
+bottomTextOnScreen.setBackdrop(viz.BACKDROP_RIGHT_BOTTOM);
+bottomTextOnScreen.font('Times New Roman'); 
+bottomTextOnScreen.resolution(1);
 
 
 #Misc Setup
