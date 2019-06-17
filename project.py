@@ -5,8 +5,25 @@
 ### Function Declarations ##########################################################
 ####################################################################################
 
+#Note: The origami_data.csv file MUST be closed before running the program in order to be able to write to it. 
 def saveResultsToCsvFile():
-	print "Successfully saved results into database! ";
+	global participantID, OrigamiType, taskType, methodType, incompleteLastStep, skippedSteps, taskData, currentDateTime;
+	
+	taskData.convertTimesToMs();
+	
+	with open('origami_data.csv', mode='a') as dataFile:
+		dataWriter = csv.writer(dataFile, delimiter=';', quotechar='"', quoting=csv.QUOTE_ALL);
+		
+		dataRow = [participantID, origamiType, taskType, methodType, incompleteLastStep, skippedSteps, 
+					taskData.overallTime, taskData.stepTimes[1], taskData.stepTimes[2], taskData.stepTimes[3], taskData.stepTimes[4],
+					taskData.stepTimes[5], taskData.stepTimes[6], taskData.stepTimes[7], taskData.stepTimes[8], taskData.stepTimes[9],
+					taskData.stepTimes[10], taskData.stepTimes[11], taskData.stepTimes[12], taskData.stepTimes[13], taskData.stepTimes[14],
+					taskData.stepTimes[15], currentDateTime
+		];
+		
+		dataWriter.writerow(dataRow);
+
+	print "Successfully saved results into csv file! ";
 	
 def updateScreenText(origamiType, stepNum):
 	global textOnScreen, bottomTextOnScreen, boatInstructions, swanInstructions;
@@ -42,13 +59,12 @@ def goToNextStep():
 		onScreenStepNum = currentStepNum;
 	else:
 		print "You have completed this task!";
-		print "Please save results by pressing the spacebar";
 		taskData.updateOverallTime();		
 		taskData.printData();
 		taskIsCompleted = True;
 		
-		#FIXME: decide if you want to just run the save results to DB automatically or not.
-		#saveResultsToCsvFile();
+		saveResultsToCsvFile();
+		exit();
 		
 def goToPreviousStep():
 	global origamiType, isStepCompleted, currentStepNum, onScreenStepNum, taskData;
@@ -62,11 +78,18 @@ def goToPreviousStep():
 #Note: The keyboard press event for the numbers 0, 1, 2, and 3 all map to the 
 #xbox controller inputs. 
 def handleKeyPressEvent(key):
-	global origamiType, onScreenStepNum, currentStepNum; 
+	global origamiType, onScreenStepNum, currentStepNum, taskData, incompleteLastStep; 
 	
+	#Pressing the space bar will end the task. This is to be used if the 
+	#participant is unable to proceed with the task.
 	if key == ' ':
-		if taskIsCompleted:
-			saveResultsToCsvFile();
+		print 'Last Step Finished: ';
+		print taskData.currentStepNum;
+
+		incompleteLastStep = "finishedStep" + str(taskData.currentStepNum);
+		
+		saveResultsToCsvFile();
+		exit();
 	else:
 		if not taskIsCompleted:
 			if key == '0':

@@ -22,6 +22,7 @@ import win32con
 import time
 from threading import Timer
 
+import csv
 import datetime
 
 #import data dependency and project files.
@@ -93,6 +94,9 @@ onScreenStepNum = 0;
 endStepNum = 0;
 taskIsCompleted = False;
 
+incompleteLastStep = "None";
+skippedSteps = "";
+
 currentStep = "Step " + str(currentStepNum);
 
 
@@ -106,7 +110,7 @@ currentDateTime = datetime.datetime.utcnow();
 ### User Input ######################################################################
 #####################################################################################
 
-participantID = raw_input("Please enter participant ID: ");
+participantID = raw_input("NOTE: Please make sure that Xbox controller is connected before running program!\n\nPlease enter participant ID:\n\n");
 
 while origamiType not in {"Boat", "Swan", "boat", "swan", "BOAT", "SWAN", "b", "s", "B", "S"}:
     origamiType = raw_input("Please enter origami type (enter 'b' for 'Boat', 's' for 'Swan'): ");
@@ -117,7 +121,7 @@ elif(origamiType == "swan" or origamiType == "SWAN" or origamiType == "s" or ori
     origamiType = "Swan";
     
 #The method type will always be AR when running from the computer.
-methodType = "AR";
+methodType = "Augmented";
 
 #The task type is determined by two separate user inputs in order to reduce ambiguity.
 while setNum not in {"1", "2"}:
@@ -261,6 +265,10 @@ class OrigamiTimeData:
         self.currentStepNum += 1;
     def revertToLastStep(self):
         self.currentStepNum -= 1;
+    def convertTimesToMs(self):
+        self.overallTime = self.overallTime * 1000;
+        for t in range(len(self.stepTimes)):
+            self.stepTimes[t] = self.stepTimes[t] * 1000;
     def printData(self):
         print "Origami Type: ";
         print self.origamiType;
